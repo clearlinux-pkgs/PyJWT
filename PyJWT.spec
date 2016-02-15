@@ -4,7 +4,7 @@
 #
 Name     : PyJWT
 Version  : 1.4.0
-Release  : 16
+Release  : 17
 URL      : https://pypi.python.org/packages/source/P/PyJWT/PyJWT-1.4.0.tar.gz
 Source0  : https://pypi.python.org/packages/source/P/PyJWT/PyJWT-1.4.0.tar.gz
 Summary  : JSON Web Token implementation in Python
