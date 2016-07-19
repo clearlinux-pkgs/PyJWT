@@ -1,4 +1,5 @@
 PKG_NAME := PyJWT
-URL := https://pypi.python.org/packages/source/P/PyJWT/PyJWT-1.4.0.tar.gz
+URL := http://pypi.debian.net/PyJWT/PyJWT-1.4.1.tar.gz
+ARCHIVES :=
 
 include ../common/Makefile.common
