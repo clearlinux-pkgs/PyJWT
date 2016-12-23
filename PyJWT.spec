@@ -4,7 +4,7 @@
 #
 Name     : PyJWT
 Version  : 1.4.2
-Release  : 24
+Release  : 25
 URL      : http://pypi.debian.net/PyJWT/PyJWT-1.4.2.tar.gz
 Source0  : http://pypi.debian.net/PyJWT/PyJWT-1.4.2.tar.gz
 Summary  : JSON Web Token implementation in Python
