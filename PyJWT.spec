@@ -4,55 +4,71 @@
 #
 Name     : PyJWT
 Version  : 1.5.2
-Release  : 29
+Release  : 30
 URL      : https://pypi.debian.net/PyJWT/PyJWT-1.5.2.tar.gz
 Source0  : https://pypi.debian.net/PyJWT/PyJWT-1.5.2.tar.gz
 Summary  : JSON Web Token implementation in Python
 Group    : Development/Tools
 License  : MIT
 Requires: PyJWT-bin
+Requires: PyJWT-python3
+Requires: PyJWT-license
 Requires: PyJWT-python
 Requires: cryptography
 Requires: flake8
 Requires: pytest
 Requires: pytest-cov
 Requires: pytest-runner
-BuildRequires : coverage-python
+BuildRequires : buildreq-distutils3
 BuildRequires : pbr
 BuildRequires : pip
 BuildRequires : pluggy
 BuildRequires : py
 BuildRequires : py-python
 BuildRequires : pytest
-BuildRequires : pytest-cov-python
 BuildRequires : pytest-runner
-BuildRequires : python-dev
 BuildRequires : python3-dev
 BuildRequires : setuptools
 BuildRequires : tox
 BuildRequires : virtualenv
 
 %description
-PyJWT
 =====
-.. image:: https://secure.travis-ci.org/jpadilla/pyjwt.svg?branch=master
-:target: http://travis-ci.org/jpadilla/pyjwt?branch=master
 
 %package bin
 Summary: bin components for the PyJWT package.
 Group: Binaries
+Requires: PyJWT-license
 
 %description bin
 bin components for the PyJWT package.
 
 
+%package license
+Summary: license components for the PyJWT package.
+Group: Default
+
+%description license
+license components for the PyJWT package.
+
+
 %package python
 Summary: python components for the PyJWT package.
 Group: Default
+Requires: PyJWT-python3
 Provides: pyjwt-python
 
 %description python
 python components for the PyJWT package.
+
+
+%package python3
+Summary: python3 components for the PyJWT package.
+Group: Default
+Requires: python3-core
+
+%description python3
+python3 components for the PyJWT package.
 
 
 %prep
@@ -63,20 +79,19 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1498168352
-python2 setup.py build -b py2
+export SOURCE_DATE_EPOCH=1532213389
 python3 setup.py build -b py3
 
 %check
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-PYTHONPATH=%{buildroot}/usr/lib/python3.6/site-packages python3 setup.py test || :
+PYTHONPATH=%{buildroot}/usr/lib/python3.7/site-packages python3 setup.py test || :
 %install
-export SOURCE_DATE_EPOCH=1498168352
 rm -rf %{buildroot}
-python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
-python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
+mkdir -p %{buildroot}/usr/share/doc/PyJWT
+cp LICENSE %{buildroot}/usr/share/doc/PyJWT/LICENSE
+python3 -tt setup.py build -b py3 install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
@@ -88,7 +103,13 @@ echo ----[ mark ]----
 %defattr(-,root,root,-)
 /usr/bin/pyjwt
 
+%files license
+%defattr(-,root,root,-)
+/usr/share/doc/PyJWT/LICENSE
+
 %files python
 %defattr(-,root,root,-)
-/usr/lib/python2*/*
+
+%files python3
+%defattr(-,root,root,-)
 /usr/lib/python3*/*
