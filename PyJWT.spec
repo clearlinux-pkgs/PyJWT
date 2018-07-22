@@ -4,7 +4,7 @@
 #
 Name     : PyJWT
 Version  : 1.6.4
-Release  : 31
+Release  : 32
 URL      : https://files.pythonhosted.org/packages/00/5e/b358c9bb24421e6155799d995b4aa3aa3307ffc7ecae4ad9d29fd7e07a73/PyJWT-1.6.4.tar.gz
 Source0  : https://files.pythonhosted.org/packages/00/5e/b358c9bb24421e6155799d995b4aa3aa3307ffc7ecae4ad9d29fd7e07a73/PyJWT-1.6.4.tar.gz
 Summary  : JSON Web Token implementation in Python
@@ -79,7 +79,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1532239479
+export SOURCE_DATE_EPOCH=1532242231
 python3 setup.py build -b py3
 
 %check
