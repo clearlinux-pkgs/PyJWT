@@ -1,5 +1,5 @@
 PKG_NAME := PyJWT
-URL = https://files.pythonhosted.org/packages/6c/91/195c34ea8ff93f1b43c5d944598b853b2e8056703aab7bc95767d233ed92/PyJWT-1.7.0.tar.gz
+URL = https://files.pythonhosted.org/packages/2f/38/ff37a24c0243c5f45f5798bd120c0f873eeed073994133c084e1cf13b95c/PyJWT-1.7.1.tar.gz
 ARCHIVES = 
 
 include ../common/Makefile.common
