@@ -4,7 +4,7 @@
 #
 Name     : PyJWT
 Version  : 1.7.1
-Release  : 38
+Release  : 39
 URL      : https://files.pythonhosted.org/packages/2f/38/ff37a24c0243c5f45f5798bd120c0f873eeed073994133c084e1cf13b95c/PyJWT-1.7.1.tar.gz
 Source0  : https://files.pythonhosted.org/packages/2f/38/ff37a24c0243c5f45f5798bd120c0f873eeed073994133c084e1cf13b95c/PyJWT-1.7.1.tar.gz
 Summary  : JSON Web Token implementation in Python
@@ -18,11 +18,15 @@ Requires: cryptography
 Requires: flake8
 Requires: flake8-import-order
 BuildRequires : buildreq-distutils3
+BuildRequires : cryptography
+BuildRequires : flake8
+BuildRequires : flake8-import-order
 BuildRequires : pluggy
 BuildRequires : py
 BuildRequires : py-python
 BuildRequires : pytest
 BuildRequires : pytest-runner
+BuildRequires : pytest-runner-python
 BuildRequires : tox
 BuildRequires : virtualenv
 
@@ -67,13 +71,19 @@ python3 components for the PyJWT package.
 
 %prep
 %setup -q -n PyJWT-1.7.1
+cd %{_builddir}/PyJWT-1.7.1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1544223921
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1576013772
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$CFLAGS -fno-lto "
+export FFLAGS="$CFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
@@ -81,11 +91,12 @@ python3 setup.py build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-PYTHONPATH=%{buildroot}/usr/lib/python3.7/site-packages python3 setup.py test || :
+PYTHONPATH=%{buildroot}$(python -c "import sys; print(sys.path[-1])") python setup.py test || :
 %install
+export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/PyJWT
-cp LICENSE %{buildroot}/usr/share/package-licenses/PyJWT/LICENSE
+cp %{_builddir}/PyJWT-1.7.1/LICENSE %{buildroot}/usr/share/package-licenses/PyJWT/bc48b3f80bfc08458a1f78bb2b49c6de2b41010f
 python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
@@ -100,7 +111,7 @@ echo ----[ mark ]----
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/PyJWT/LICENSE
+/usr/share/package-licenses/PyJWT/bc48b3f80bfc08458a1f78bb2b49c6de2b41010f
 
 %files python
 %defattr(-,root,root,-)
